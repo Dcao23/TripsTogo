@@ -1,1 +1,1 @@
-# TripsTogo
+# TripsToGo
