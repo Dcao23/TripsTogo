@@ -25,7 +25,7 @@ const TripsSchema = new Schema({
         {
           name: {
             type: String,
-            required: true,            
+            required: true,
           },
           checkInDate: {
             type: String,
