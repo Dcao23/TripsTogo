@@ -1,33 +1,23 @@
 const mongoose = require('mongoose');
 
-const tripSchema = new mongoose.Schema({
-    tripName: {
+const postSchema = new mongoose.Schema({
+    title: {
         type: String,
         required: true,
         trim: true,
         maxLength: 100,
     },
-    tripDescription: {
+    content: {
         type: String,
         required: true,
         trim: true,
         maxLength: 1000,
     },
-    location: {
-        type: String,
-        required: true,
-        trim: true,
-        maxLength: 100,
-    },
-    startDate: {
-        type: Date,
+    images: {
+        type: [String],
         required: true,
     },
-    endDate: {
-        type: Date,
-        required: true,
-    },
-    user: {
+    author: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
         required: true,
@@ -38,6 +28,6 @@ const tripSchema = new mongoose.Schema({
     },
 });
 
-const Trip = mongoose.model('Trip', tripSchema);
+const Post = mongoose.model('Post', postSchema);
 
-module.exports = Trip;
+module.exports = Post;
