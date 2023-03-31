@@ -5,8 +5,9 @@ export function validateEmail(email) {
   }
   
   export function checkPassword(input) {
-    const passw = /^[A-Za-z]\w{7,14}$/;
-    if (input.match(passw)) {
+    const passw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,30}$/;
+    console.log(passw.test(input))
+    if (passw.test(input)) {
       return true;
     }
     return false;
