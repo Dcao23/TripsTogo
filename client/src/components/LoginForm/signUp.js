@@ -8,12 +8,12 @@ function SignUp() {
     const [errorMessage, setErrorMessage] = useState('');
   
     const handleInputChange = (e) => {
-      // Getting the value and name of the input which triggered the change
+      
       const { target } = e;
       const inputType = target.name;
       const inputValue = target.value;
   
-      // Based on the input type, we set the state of either email, username, and password
+      
       if (inputType === 'email') {
         setEmail(inputValue);
       } else if (inputType === 'userName') {
@@ -24,17 +24,19 @@ function SignUp() {
     };
   
     const handleFormSubmit = (e) => {
-      // Preventing the default behavior of the form submit (which is to refresh the page)
+      
       e.preventDefault();
+
+      console.log(password)
   
-      // First we check to see if the email is not valid or if the userName is empty. If so we set an error message to be displayed on the page.
+      
       if (!validateEmail(email) || !userName) {
         setErrorMessage('Email or username is invalid');
-        // We want to exit out of this code block if something is wrong so that the user can correct it
+        
         return;
-        // Then we check to see if the password is not valid. If so, we set an error message regarding the password.
+        
       }
-      if (!checkPassword(password)) {
+      else if (!checkPassword(password)) {
         setErrorMessage(
           `Choose a more secure password for the account: ${userName}`
         );
@@ -42,7 +44,6 @@ function SignUp() {
       }
       alert(`Hello ${userName}`);
   
-      // If everything goes according to plan, we want to clear out the input after a successful registration.
       setUserName('');
       setPassword('');
       setEmail('');
@@ -59,11 +60,10 @@ return (
                     <p>username</p>
                     <input 
                         value={userName}
-                        name="username" 
+                        name="userName" 
                         onChange={handleInputChange}
                         type="text"
-                        placeholder=""
-
+                        placeholder="username"
                     />
                 </label>
                 <label>
@@ -73,7 +73,7 @@ return (
                         name="email" 
                         onChange={handleInputChange}
                         type="email"
-                        placeholder=""
+                        placeholder="email"
                     />
                 </label>
                 <label>
@@ -83,7 +83,7 @@ return (
                         name="password"
                         onChange={handleInputChange}
                         type="password"
-                        placeholder="" 
+                        placeholder="password" 
                     />
                 </label>
                 <button type="submit" onClick={handleFormSubmit}>Sign Up</button>
@@ -94,7 +94,7 @@ return (
                 <p className="error-message">{errorMessage}</p>
             </div>
         )}
-        <p>Have an account already?</p>
+        <p>Have an account already? Log in.</p>
         <button>Log In</button>
     </div>
 )
