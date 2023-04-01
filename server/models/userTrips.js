@@ -1,28 +1,27 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 
-const tripSchema = new mongoose.Schema({
-    tripName: {
+const userTripSchema = new Schema({
+    user_id: {
         type: String,
         required: true,
-        trim: true,
-        maxLength: 100,
     },
-    tripDescription: {
+    title: {
         type: String,
         required: true,
-        trim: true,
-        maxLength: 1000,
     },
-    location: {
+    description: {
         type: String,
         required: true,
-        trim: true,
-        maxLength: 100,
+    },
+    image: {
+        type: String,
     },
     createdAt: {
         type: Date,
         default: Date.now,
+        get: (timestamp) => dateFormat(timestamp),
     },
+
     comments: [
       {
         commentText: {
@@ -31,7 +30,7 @@ const tripSchema = new mongoose.Schema({
           minlength: 1,
           maxlength: 280,
         },
-        commentAuthor: {
+        user_id: {
           type: String,
           required: true,
         },
@@ -42,11 +41,6 @@ const tripSchema = new mongoose.Schema({
         },
       },
     ],
-  });
+});
 
-
-const Trip = mongoose.model('Trip', tripSchema);
-
-module.exports = Trip;;
-
-
+module.exports = userTripSchema;

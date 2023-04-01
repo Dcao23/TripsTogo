@@ -21,11 +21,15 @@ const userSchema = new mongoose.Schema({
         trim: true,
         minLength: 8,
     },
-    date: {
-        type: Date,
-        default: Date.now,
-    },
-  });
+
+    myTrips: [
+      {
+        type: Schema.Type.ObjectId,
+        ref: 'userTrips',
+      },
+    ],
+
+});
 
   //hash password before saving to database
   userSchema.pre('save', async function (next) {
