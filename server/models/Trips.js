@@ -19,30 +19,34 @@ const tripSchema = new mongoose.Schema({
         trim: true,
         maxLength: 100,
     },
-    startDate: {
-        type: Date,
-        required: true,
-    },
-    endDate: {
-        type: Date,
-        required: true,
-    },
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
     createdAt: {
         type: Date,
         default: Date.now,
     },
-});
+    comments: [
+      {
+        commentText: {
+          type: String,
+          required: true,
+          minlength: 1,
+          maxlength: 280,
+        },
+        commentAuthor: {
+          type: String,
+          required: true,
+        },
+        createdAt: {
+          type: Date,
+          default: Date.now,
+          get: (timestamp) => dateFormat(timestamp),
+        },
+      },
+    ],
+  });
+
 
 const Trip = mongoose.model('Trip', tripSchema);
 
 module.exports = Trip;;
 
-const Trips = model('Trips', TripsSchema);
-
-module.exports = Trips;
 

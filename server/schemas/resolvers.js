@@ -2,21 +2,13 @@ const { User, Post, Comment, Trip } = require('./models');
 
 const resolvers = {
     Query: {
-        //fetch all posts
-        posts: async () => {
-            return await Post.find();
-        },
-    //fetch a post by id
-    post: async (_, { id }) => {
-        return await Post.findById(id);
-    },
     //fetch all users
     users: async () => {
-        return await User.find();
+        return await User.find().populate('myTrips');
     },
     //fetch a user by id
-    user: async (_, { id }) => {
-        return await User.findById(id);
+    user: async (_, { username }) => {
+        return await User.findOne(username).populate('myTrips');
     },
     //fetch all trips
     trips: async () => {
