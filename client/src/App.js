@@ -1,33 +1,18 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// Uncomment import statement below after building queries and mutations
-// import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
-
-import Home from './pages/Home';
-import Matchup from './pages/Matchup';
-import Vote from './pages/Vote';
-
+import logo from './logo.svg';
+import './App.css';
+import SignIn from './components/LoginForm/signIn'
+import SignUp from './components/LoginForm/signUp';
 function App() {
   return (
-    <Router>
-      <div className="flex-column justify-center align-center min-100-vh bg-primary">
-        <Routes>
-          <Route 
-            path="/" 
-            element={<Home />} 
-          />
-          <Route 
-            path="/matchup" 
-            element={<Matchup />} 
-          />
-          <Route 
-            path="/matchup/:id" 
-            element={<Vote />} 
-          />
-        </Routes>
-      </div>
-    </Router>
+    <h1 className="text-3xl font-bold text-blue-500">
+      TripsToGo
+    </h1>,
+    <div className='signin'>
+      <SignIn/>
+    </div>,
+    <div className='signup'>
+      <SignUp />
+    </div>
   );
 }
 

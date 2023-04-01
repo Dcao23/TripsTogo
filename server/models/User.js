@@ -1,24 +1,25 @@
-const { Schema, model } = require('mongoose');
-// for when bcrypt is installed
-// const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 
-const userSchema = new Schema({
+const userSchema = new mongoose.Schema({
     username: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
+        type: String,
+        required: true,
+        trim: true,
+        maxLength: 100,
     },
     email: {
-      type: String,
-      required: true,
-      unique: true,
-    //   match: [/.+@.+\..+/, 'Must match an email address!'],
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        maxLength: 100,
     },
     password: {
-      type: String,
-      required: true,
-      minlength: 8,
+        type: String,
+        required: true,
+        trim: true,
+        minLength: 8,
     },
 
     myTrips: [
@@ -30,22 +31,22 @@ const userSchema = new Schema({
 
 });
 
-// For when bcyrpt is installed
+  //hash password before saving to database
+  userSchema.pre('save', async function (next) {
+    const user = this;
+    if (user.isModified('password')) {
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(user.password, salt);
+    }
+    next();
+  });
 
-// userSchema.pre('save', async function (next) {
-//   if (this.isNew || this.isModified('password')) {
-//     const saltRounds = 10;
-//     this.password = await bcrypt.hash(this.password, saltRounds);
-//   }
-  
-//   next();
-// });
-  
-//   // compare the incoming password with the hashed password
-// userSchema.methods.isCorrectPassword = async function (password) {
-//   return bcrypt.compare(password, this.password);
-// };
+  //compare password
+  userSchema.methods.comparePassword = async function (password) {
+    const user = this;
+    return await bcrypt.compare(password, user.password);
+  }
 
-const User = model('User', userSchema);
+  const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+  module.exports = User;
