@@ -21,18 +21,10 @@ const userSchema = new Schema({
       minlength: 8,
     },
 
-    plannedTrips: [
+    myTrips: [
       {
-        type: Schema.Types.ObjectId,
-        ref:'Flights',
-      },
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Hotels',
-      },
-      {
-        type: Boolean,
-        ref: 'Transportation',
+        type: Schema.Type.ObjectId,
+        ref: 'userTrips',
       },
     ],
 
