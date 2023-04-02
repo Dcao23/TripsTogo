@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 // for when bcrypt is installed
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
     username: {
@@ -13,7 +13,7 @@ const userSchema = new Schema({
       type: String,
       required: true,
       unique: true,
-    //   match: [/.+@.+\..+/, 'Must match an email address!'],
+      match: [/.+@.+\..+/, 'Must match an email address!'],
     },
     password: {
       type: String,
@@ -39,20 +39,18 @@ const userSchema = new Schema({
 });
 
 // For when bcyrpt is installed
-
-// userSchema.pre('save', async function (next) {
-//   if (this.isNew || this.isModified('password')) {
-//     const saltRounds = 10;
-//     this.password = await bcrypt.hash(this.password, saltRounds);
-//   }
-  
-//   next();
-// });
+userSchema.pre('save', async function (next) {
+  if (this.isNew || this.isModified('password')) {
+    const saltRounds = 10;
+    this.password = await bcrypt.hash(this.password, saltRounds);
+  }
+  next();
+});
   
 //   // compare the incoming password with the hashed password
-// userSchema.methods.isCorrectPassword = async function (password) {
-//   return bcrypt.compare(password, this.password);
-// };
+userSchema.methods.isCorrectPassword = async function (password) {
+  return bcrypt.compare(password, this.password);
+};
 
 const User = model('User', userSchema);
 
