@@ -6,14 +6,15 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    myTrips: [userTrips]!
+    userTrips: [Trips]!
   }
   
-  type userTrip {
+  type Trip {
     _id: ID
-    user_id: String
-    title: String
-    description: String
+    tripCreator: String
+    tripName: String
+    tripDescription: String
+    location: String
     image: String
     createdAt: String
     comments: [Comment]!
@@ -24,6 +25,16 @@ const typeDefs = gql`
     user_id: String
     createdAt: String
   }
+  input UserTrip {
+    tripId: String
+    tripCreator: String
+    tripName: String
+    tripDescription: String
+    location: String
+    image: String
+    createdAt: String
+    comments: [Comment]!
+  }
   type Auth {
     token: ID!
     user: User
@@ -32,12 +43,26 @@ const typeDefs = gql`
   type Query {
     users: [User]
     user(username: String): User
-    myTrips(username: String); [Trips]
+    trips(username: String); [Trip]
+    trip(tripId: ID!): Trip
     
   }
   
   type Mutations {
+    createUser: (username: String1, email: String!, password: String!, bio: String, profilePic: String): Auth
+    login(email: String!, password: String!): Auth
+    createTrip(tripCreator: String!, tripName: String!, tripDescription!: String!, location: String!, image: String,): userTrip
+    createComment(
+      tripId: ID!
+      commentText: String!
+      commentCreator: String!
+    ): Trip
+    deleteTrip(tripId: Id!): Trip
+    deleteComment(thoughtId: ID!, commentId: ID!): Trip
     
-  }`
+  }
+`;
+
+module.exports = typeDefs;
 
   
