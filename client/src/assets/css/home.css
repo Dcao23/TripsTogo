@@ -57,3 +57,16 @@
     font-size: 17px;
     background-color: #6c717e;
   }
+
+  .common_width {
+    width: 1300px;
+    margin: 0rem auto;
+  }
+  .boxes-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 5rem;
+    grid-row-gap: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
