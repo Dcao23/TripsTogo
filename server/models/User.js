@@ -21,11 +21,18 @@ const userSchema = new mongoose.Schema({
         trim: true,
         minLength: 8,
     },
-
-    myTrips: [
+    bio: {
+        type: String,
+        maxLength: 300,
+    },
+    profilePic: {
+        type: String,
+        required: false,
+    },
+    userTrips: [
       {
         type: Schema.Type.ObjectId,
-        ref: 'userTrips',
+        ref: 'Trips',
       },
     ],
 
