@@ -1,7 +1,7 @@
 import React from "react";
-import { Header } from "client/src/components/header.jsx";
+import { Header } from "../components/header";
 import "../assets/css/home.css";
-import { InfoBox } from "client/src/components/Homepage/Infobox.jsx";
+import { InfoBox } from "../components/Homepage/Infobox";
 export const Home = () => {
   return (
     <div className="Home">
