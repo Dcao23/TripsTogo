@@ -5,6 +5,7 @@ export const Home = () => {
   return (
     <div className="Home">
       <Header />
+      <div className="boxes-wrapper common_width"></div>
     </div>
   );
 };
