@@ -38,4 +38,4 @@ export const QUERY_TRIPS = gql`
   }
 `;
 
-export const QUERY_USER_TRIPS = gql``
+// export const QUERY_USER_TRIPS = gql``
