@@ -1,0 +1,59 @@
+@font-face {
+    font-family: "CambridgeReg";
+    src: url("../font/Cambridge\ Round\ Regular.otf");
+  }
+  * {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  .Home {
+    font-family: "Montserrat", sans-serif;
+  }
+  a {
+    text-decoration: none;
+  }
+  nav,
+  li {
+    list-style: none;
+  }
+  .Header {
+    border-bottom: 1px solid #ddd;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-family: "CambridgeReg";
+  }
+  
+  .Header > nav {
+    display: flex;
+    align-items: center;
+  }
+  .Header > nav > * + * {
+    margin-left: 20px;
+  }
+  .Header > nav a {
+    padding: 1rem 1.5rem;
+    color: #898a8d;
+  }
+  .Header > nav a.active {
+    font-weight: 600;
+    color: #3d3f47;
+    border-bottom: 2px solid #202020;
+  }
+  
+  .Header .profile-avatar {
+    position: absolute;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    background-color: #6c717e;
+  }
