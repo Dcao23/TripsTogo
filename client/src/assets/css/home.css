@@ -145,3 +145,31 @@
       width: 95%;
     }
   }
+
+  @media screen and (max-width: 600px) {
+    .InfoBox {
+      flex-direction: column;
+    }
+    .InfoBox > img {
+      width: 100%;
+    }
+    .InfoBox .presentation .bottom-area {
+      position: static;
+      width: 100%;
+    }
+    .InfoBox .presentation h1 {
+      font-size: 22px;
+    }
+    .Header .profile-avatar {
+      display: none;
+    }
+  
+    .Header > nav {
+      min-width: 100%;
+      padding: 0rem 1rem;
+      justify-content: space-between;
+    }
+    .Header > nav > * + * {
+      margin-left: 0px;
+    }
+  }
