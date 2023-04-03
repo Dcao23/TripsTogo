@@ -1,0 +1,175 @@
+@font-face {
+    font-family: "CambridgeReg";
+    src: url("../font/Cambridge\ Round\ Regular.otf");
+  }
+  * {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+  }
+  .Home {
+    font-family: "Montserrat", sans-serif;
+  }
+  a {
+    text-decoration: none;
+  }
+  nav,
+  li {
+    list-style: none;
+  }
+  .Header {
+    border-bottom: 1px solid #ddd;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-family: "CambridgeReg";
+  }
+  
+  .Header > nav {
+    display: flex;
+    align-items: center;
+  }
+  .Header > nav > * + * {
+    margin-left: 20px;
+  }
+  .Header > nav a {
+    padding: 1rem 1.5rem;
+    color: #898a8d;
+  }
+  .Header > nav a.active {
+    font-weight: 600;
+    color: #3d3f47;
+    border-bottom: 2px solid #202020;
+  }
+  
+  .Header .profile-avatar {
+    position: absolute;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    background-color: #6c717e;
+  }
+
+  .common_width {
+    width: 1300px;
+    margin: 0rem auto;
+  }
+  .boxes-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 5rem;
+    grid-row-gap: 2rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+
+  .InfoBox {
+    display: flex;
+    border: 1px solid #e2e8e8;
+  }
+  .InfoBox > img {
+    min-width: 180px;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  .InfoBox .presentation {
+    font-family: "CambridgeReg";
+    padding: 1rem;
+    position: relative;
+  }
+  .InfoBox .presentation h1 {
+    font-size: 25px;
+  }
+  .InfoBox .presentation > p {
+    color: #8a8b8b;
+    margin-top: 0.5rem;
+    line-height: 25px;
+  }
+  .InfoBox .presentation .bottom-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+  }
+  .InfoBox .presentation .bottom-area > p {
+    color: #b1b1b1;
+    font-size: 13px;
+  }
+  .InfoBox .presentation .bottom-area .heart-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  .InfoBox .presentation .bottom-area .heart-wrapper > * + * {
+    margin-left: 5px;
+  }
+  .InfoBox .presentation .bottom-area .heart-wrapper svg {
+    width: 30px;
+    color: #d2574f;
+  }
+  .InfoBox .presentation .bottom-area .heart-wrapper .profile-icon {
+    width: 35px;
+    height: 35px;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    background-color: #6c717e;
+  }
+
+@media screen and (max-width: 1350px) {
+    .common_width {
+      width: 95%;
+    }
+    .boxes-wrapper {
+      grid-template-columns: 1fr;
+      grid-column-gap: 2rem;
+    }
+    .InfoBox > img {
+      width: 180px;
+    }
+    .InfoBox .presentation .bottom-area {
+      width: 95%;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .InfoBox {
+      flex-direction: column;
+    }
+    .InfoBox > img {
+      width: 100%;
+    }
+    .InfoBox .presentation .bottom-area {
+      position: static;
+      width: 100%;
+    }
+    .InfoBox .presentation h1 {
+      font-size: 22px;
+    }
+    .Header .profile-avatar {
+      display: none;
+    }
+  
+    .Header > nav {
+      min-width: 100%;
+      padding: 0rem 1rem;
+      justify-content: space-between;
+    }
+    .Header > nav > * + * {
+      margin-left: 0px;
+    }
+  }
