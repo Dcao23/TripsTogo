@@ -129,3 +129,19 @@
     font-size: 15px;
     background-color: #6c717e;
   }
+
+@media screen and (max-width: 1350px) {
+    .common_width {
+      width: 95%;
+    }
+    .boxes-wrapper {
+      grid-template-columns: 1fr;
+      grid-column-gap: 2rem;
+    }
+    .InfoBox > img {
+      width: 180px;
+    }
+    .InfoBox .presentation .bottom-area {
+      width: 95%;
+    }
+  }
