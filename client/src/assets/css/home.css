@@ -70,3 +70,62 @@
     margin-top: 3rem;
     margin-bottom: 3rem;
   }
+
+  .InfoBox {
+    display: flex;
+    border: 1px solid #e2e8e8;
+  }
+  .InfoBox > img {
+    min-width: 180px;
+    height: 250px;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  .InfoBox .presentation {
+    font-family: "CambridgeReg";
+    padding: 1rem;
+    position: relative;
+  }
+  .InfoBox .presentation h1 {
+    font-size: 25px;
+  }
+  .InfoBox .presentation > p {
+    color: #8a8b8b;
+    margin-top: 0.5rem;
+    line-height: 25px;
+  }
+  .InfoBox .presentation .bottom-area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    position: absolute;
+    bottom: 20px;
+    width: 90%;
+  }
+  .InfoBox .presentation .bottom-area > p {
+    color: #b1b1b1;
+    font-size: 13px;
+  }
+  .InfoBox .presentation .bottom-area .heart-wrapper {
+    display: flex;
+    align-items: center;
+  }
+  .InfoBox .presentation .bottom-area .heart-wrapper > * + * {
+    margin-left: 5px;
+  }
+  .InfoBox .presentation .bottom-area .heart-wrapper svg {
+    width: 30px;
+    color: #d2574f;
+  }
+  .InfoBox .presentation .bottom-area .heart-wrapper .profile-icon {
+    width: 35px;
+    height: 35px;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    background-color: #6c717e;
+  }
