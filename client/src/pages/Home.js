@@ -2,7 +2,8 @@ import React from "react";
 import { Header } from "../components/header";
 import "../assets/css/home.css";
 import { InfoBox } from "../components/Homepage/Infobox";
-export const Home = () => {
+
+const Home = () => {
   return (
     <div className="Home">
       <Header />
@@ -41,3 +42,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default Home;
