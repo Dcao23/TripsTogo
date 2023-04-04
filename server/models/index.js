@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
 const User = require('./User');
-const Trip = require('./Trips');
+const Trip = require('./Trip');
 
 module.exports = { User, Trip };

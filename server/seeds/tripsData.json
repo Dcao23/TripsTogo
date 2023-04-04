@@ -1,27 +1,45 @@
 [
     {
-        "Destination": "",
-        "Hotel/AirBnb": "",
-        "PlacesToVisit": ""
+        "name": "Spring Break",
+        "creator": "Gavin",
+        "description": "Some trip",
+        "location": "Paris",
+        "image": "./assets/paris.jpeg",
+        "comments": [{
+            "text": "Cool trip!",
+            "author": "Gavin "
+        }]
     },
     {
-        "Destination": "",
-        "Hotel/AirBnb": "",
-        "PlacesToVisit": ""
+        "name": "Summer Vacation",
+        "creator": "Gavin",
+        "description": "Some trip",
+        "location": "New York",
+        "image": "./assets/new_york.jpeg",
+        "comments": []
     },
     {
-        "Destination": "",
-        "Hotel/AirBnb": "",
-        "PlacesToVisit": ""
+        "name": "Thanksgiving Trip",
+        "creator": "Andrew",
+        "description": "Some trip",
+        "location": "Tokyo",
+        "image": "./assets/tokyo.jpeg",
+        "comments": []
     },
     {
-        "Destination": "",
-        "Hotel/AirBnb": "",
-        "PlacesToVisit": ""
+        "name": "Winter Break",
+        "creator": "Gavin",
+        "description": "Some trip",
+        "location": "Bangkok",
+        "image": "./assets/bangkok.jpeg",
+        "comments": []
     },
     {
-        "Destination": "",
-        "Hotel/AirBnb": "",
-        "PlacesToVisit": ""
+        "name": "Honeymoon",
+        "creator": "Andrew",
+        "description": "Some trip",
+        "location": "San Francisco",
+        "image": "./assets/san_francisco.jpeg",
+        "comments": []
     }
 ]

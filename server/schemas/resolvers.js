@@ -4,11 +4,11 @@ const resolvers = {
   Query: {
     // fetch all users
     users: async () => {
-      return User.find().populate('userTrips');
+      return User.find().populate('trips');
     },
     // fetch a user by username
-    user: async (_, { username }) => {
-      return User.findOne({ username }).populate('userTrips');
+    user: async (_, { userId }) => {
+      return User.findById(userId).populate('trips');
     },
     // fetch all trips
     userTrips: async (_, { username }) => {
@@ -18,6 +18,9 @@ const resolvers = {
     // fetch a trip by id
     trip: async (_, { tripId }) => {
       return Trip.findOne({ _id: tripId });
+    },
+    trips: async () => {
+      return Trip.find();
     },
   },
   Mutation: {
