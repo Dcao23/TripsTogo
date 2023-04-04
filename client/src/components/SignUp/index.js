@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import { checkPassword, validateEmail } from "../../utils/newhelpers";
+import { CREATE_USER } from '../../utils/mutations'
+import { useMutation } from '@apollo/client'
+import AuthService from "../../utils/auth";
+import { Link } from "react-router-dom";
 
 function SignUp() {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+
+  const [addUser] = useMutation(CREATE_USER)
 
   const handleInputChange = (e) => {
     const { target } = e;
@@ -21,7 +27,7 @@ function SignUp() {
     }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     console.log(password);
@@ -36,7 +42,21 @@ function SignUp() {
       );
       return;
     }
-    alert(`Hello ${userName}`);
+
+
+    try {
+     const {data} = await addUser({
+        variables: {
+          username: userName,
+          email,
+          password
+        }
+      })
+
+      AuthService.login(data.login.token)
+    } catch (e) {
+      console.error(e)
+    }
 
     setUserName("");
     setPassword("");
@@ -89,7 +109,7 @@ function SignUp() {
         </div>
       )}
       <p>Have an account already? Log in.</p>
-      <button>Log In</button>
+      <Link to='/login'><button>Log In</button></Link>
     </div>
   );
 }

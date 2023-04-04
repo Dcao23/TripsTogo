@@ -39,18 +39,16 @@ const userSchema = new Schema({
 
   //hash password before saving to database
   userSchema.pre('save', async function (next) {
-    const user = this;
-    if (user.isModified('password')) {
+    if (this.isNew || this.isModified('password')) {
       const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(user.password, salt);
+      this.password = await bcrypt.hash(this.password, salt);
     }
     next();
   });
 
   //compare password
-  userSchema.methods.comparePassword = async function (password) {
-    const user = this;
-    return await bcrypt.compare(password, user.password);
+  userSchema.methods.isCorrectPassword = async function (password) {
+    return await bcrypt.compare(password, this.password);
   }
 
   const User = model('User', userSchema);

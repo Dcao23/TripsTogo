@@ -1,4 +1,5 @@
 const { User, Trip } = require('../models');
+const { signToken } = require('../utils/auth')
 
 const resolvers = {
   Query: {
@@ -9,6 +10,11 @@ const resolvers = {
     // fetch a user by username
     user: async (_, { userId }) => {
       return User.findById(userId).populate('trips');
+    },
+    me: async (_, __, { user }) => {
+      if (user) {
+        return User.findById(user._id).populate('trips')
+      }
     },
     // fetch all trips
     userTrips: async (_, { username }) => {
@@ -46,15 +52,19 @@ const resolvers = {
 
       return { token, user };
     },
-    createTrip: async (parent, { tripName, tripDescription, location, img, tripCreator }) => {
-      const newTrip = await Trip.create({ tripName, tripDescription, location, img });
+    createTrip: async (parent, { input }, { user }) => {
+      if (user) {
+        console.log("Username", user)
+        const { name, description, location, image, creator } = input;
+        const newTrip = await Trip.create({ name, description, location, image, creator });
 
-      await User.findOneAndUpdate(
-        { username: tripCreator },
-        { $addToSet: { userTrips: newTrip._id } }
-      );
+        await User.findByIdAndUpdate(
+          user._id,
+          { $addToSet: { trips: newTrip._id } }
+        );
 
-      return newTrip;
+        return newTrip;
+      }
     },
     addComment: async (parent, { tripId, commentText, commentCreator }) => {
       return Trip.findOneAndUpdate(

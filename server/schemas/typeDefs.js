@@ -17,7 +17,6 @@ const typeDefs = gql`
     location: String
     image: String
     createdAt: String
-    comments: [Comment]!
   }
   
   type Comment {
@@ -33,19 +32,19 @@ const typeDefs = gql`
     description: String!
     location: String!
     image: String
-    comments: [String]
   }
   
   type Query {
     users: [User]
     user(userId: ID!): User
+    me: User
     trips: [Trip]
     userTrips(username: String!): [Trip]
     trip(tripId: ID!): Trip
   }
   
   type Mutation {
-    addUser(username: String!, email: String!, password: String!): User
+    addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     createTrip(input: UserTrip!): Trip
     addComment(tripId: ID!, commentText: String!, commentCreator: String!): Comment
