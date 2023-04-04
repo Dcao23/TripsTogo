@@ -1,44 +1,39 @@
-//require dependancies
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+const path = require('path');
+const db = require('./config/connection');
+const { typeDefs, resolvers } = require('../server/schemas');
+const { authMiddleware } = require('./utils/auth');
 
-//require typeDefs and resolvers
-const {typeDefs, resolvers} = require('./schema');
-
-//create express server
-const app = express();
-
-//port
 const PORT = process.env.PORT || 3001;
-
-//connect to mongoDB
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/apollo', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false
-});
-
-//create apollo server
+const app = express();
 const server = new ApolloServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: authMiddleware
 });
 
-//apply middleware
-server.applyMiddleware({ app });
-
-//apply cors
-app.use(cors());
-
-//enable express to parse json data
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-//connect to port
-app.listen(PORT, () => {
-    console.log(`🌍 Now listening on localhost:${PORT}`);
-    console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../client/build')));
+}
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
+
+const startApolloServer = async (typeDefs, resolvers) => {
+    await server.start();
+    server.applyMiddleware({ app });
+
+    db.once('open', () => {
+        app.listen(PORT, () => {
+            console.log(`API server running on port ${PORT}!`);
+            console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
+            });
+        });
+    };
+
+startApolloServer(typeDefs, resolvers);
