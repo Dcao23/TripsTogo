@@ -1,0 +1,23 @@
+[
+    {
+        "username": "hello",
+        "password": "123456",
+        "name": "Megan",
+        "email": "megan@gmail.com",
+        "trips": "Cancun, Vietnam, Tahiti, Barcelona, Dubai, Victoria Falls"
+    },
+    {
+        "username": "goodbye",
+        "password": "1234567",
+        "name": "Kevin",
+        "email": "kevin@gmail.com",
+        "trips": "Bahamas, Turkey, London, Grand Canyon, St. Lucia"
+    },
+    {
+        "usernam": "travel",
+        "password": "12345678",
+        "name": "Jenny",
+        "email": "jenny@gmail.com",
+        "trips": "Japan, Alaska, Paris, Turks & Caicos, Bali, Yosemite National Park"
+    }
+]

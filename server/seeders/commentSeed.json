@@ -1,0 +1,20 @@
+[
+    {
+        "content": "I love the grand canyon",
+        "author": "Jon Snow",
+        "date": "2019-01-01",
+        "postid": 1
+    },
+    {
+        "content": "Tokyo is a great city",
+        "author": "Ned Stark",
+        "date": "2019-01-02",
+        "postid": 2
+    },
+    {
+        "content": "I saw big ben too",
+        "author": "Arya Stark",
+        "date": "2019-01-03",
+        "postid": 3
+    }
+]

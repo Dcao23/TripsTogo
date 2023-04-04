@@ -1,0 +1,23 @@
+[
+    {
+        "id": "1",
+        "title": "The 10 Best Places to Visit in the USA",
+        "content": "The United States of America is a large country in North America, often referred to as the 'USA', the 'US', the 'United States', 'America', or simply 'the States'.",
+        "author": "John Doe",
+        "date": "2019-01-01"
+    },
+    {
+        "id": "2",
+        "title": "Japan",
+        "content": "Japan is a country in East Asia. It is often called the 'Land of the Rising Sun'.",
+        "author": "Kate",
+        "date": "2019-01-02"
+    },
+    {
+        "id": "3",
+        "title": "City of London",
+        "content": "The City of London is the 32nd most populous city in the world and the 81st most populous urban area in the world.",
+        "author": "Jan",
+        "date": "2019-01-03"
+    }
+]

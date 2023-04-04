@@ -1,0 +1,20 @@
+[
+    {
+        "destination": "Montreal",
+        "hotel": "Hotel 1",
+        "price": "100",
+        "date": "2019-01-01"
+    },
+    {
+        "destination": "Monaco",
+        "hotel": "Hotel 2",
+        "price": "200",
+        "date": "2019-01-01"
+    },
+    {
+        "destination": "Tokyo",
+        "hotel": "Hotel 3",
+        "price": "300",
+        "date": "2019-01-01"
+    }
+]

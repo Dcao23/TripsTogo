@@ -6,7 +6,7 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    userTrips: [Trips]!
+    userTrips: [Trip]!
   }
   
   type Trip {
@@ -15,54 +15,50 @@ const typeDefs = gql`
     tripName: String
     tripDescription: String
     location: String
-    image: String
+    img: String
     createdAt: String
     comments: [Comment]!
   }
+  
   type Comment {
     _id: ID
     commentText: String
-    user_id: String
+    commentCreator: String
     createdAt: String
   }
+  
   input UserTrip {
-    tripId: String
-    tripCreator: String
-    tripName: String
-    tripDescription: String
-    location: String
-    image: String
-    createdAt: String
-    comments: [Comment]!
-  }
-  type Auth {
-    token: ID!
-    user: User
+    tripCreator: String!
+    tripName: String!
+    tripDescription: String!
+    location: String!
+    img: String
+    comments: [String]
   }
   
   type Query {
     users: [User]
-    user(username: String): User
-    trips(username: String); [Trip]
+    user(username: String!): User
+    userTrips(username: String!): [Trip]
     trip(tripId: ID!): Trip
-    
   }
   
-  type Mutations {
-    createUser: (username: String1, email: String!, password: String!, bio: String, profilePic: String): Auth
+  type Mutation {
+    addUser(username: String!, email: String!, password: String!, bio: String!, profilePic: String!): User
     login(email: String!, password: String!): Auth
-    createTrip(tripCreator: String!, tripName: String!, tripDescription!: String!, location: String!, image: String,): userTrip
-    createComment(
-      tripId: ID!
-      commentText: String!
-      commentCreator: String!
-    ): Trip
-    deleteTrip(tripId: Id!): Trip
-    deleteComment(thoughtId: ID!, commentId: ID!): Trip
-    
+    createTrip(input: UserTrip!): Trip
+    addComment(tripId: ID!, commentText: String!, commentCreator: String!): Comment
+    deleteTrip(tripId: ID!): Boolean
+    deleteComment(tripId: ID!, commentId: ID!): Boolean 
+  }
+  
+  type Auth {
+    token: ID!
+    user: User
   }
 `;
 
 module.exports = typeDefs;
+
 
   
