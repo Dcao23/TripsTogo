@@ -1,45 +1,54 @@
 import React, { useState } from "react";
+import { useMutation } from '@apollo/client'
+import { LOGIN_USER } from '../../utils/mutations'
 import { checkPassword, validateEmail } from "../../utils/helpers";
-function SignIn() {
-  const [error, setError] = useState({});
-  const [submission, setSubmission] = useState(false);
-  const show_Error_Msg = (name) =>
-    name === show_Error_Msg.name && (
-      <div className="error">{show_Error_Msg}</div>
-    );
-  const [userName, setUserName] = useState("");
+import AuthService from "../../utils/auth";
+import { Link } from "react-router-dom";
+function LogIn() {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [login, { error, data }] = useMutation(LOGIN_USER)
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    return name === "userName" ? setUserName(value) : setPassword(value);
+    return name === "email" ? setEmail(value) : setPassword(value);
   };
 
-  const render = <div></div>;
-
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    alert(`Hello ${userName}`);
-    setUserName("");
-    setPassword("");
+    try {
+      const { data } = await login({
+        variables: { email, password }
+      })
+
+      console.log(data.login.token)
+
+      AuthService.login(data.login.token)
+
+      setEmail("");
+      setPassword("");
+    } catch (e) {
+      console.error(e)
+    }
+
   };
 
   return (
     <div className="form bg-blue-500">
-      <h2>Sign In</h2>
+      <h2>Log In</h2>
       <form>
         <fieldset>
           <label>
-            <p>Username</p>
+            <p>Email</p>
             <input
-              value={userName}
-              name="userName"
+              value={email}
+              name="email"
               onChange={handleInputChange}
               type="text"
-              placeholder="Username"
-              {...show_Error_Msg("userName")}
+              placeholder="Email"
             />
           </label>
           <label>
@@ -50,18 +59,17 @@ function SignIn() {
               onChange={handleInputChange}
               type="text"
               placeholder="Password"
-              {...show_Error_Msg("password")}
             />
           </label>
           <button type="submit" onClick={handleFormSubmit}>
-            Sign In
+            Log In
           </button>
         </fieldset>
       </form>
       <p>No account?</p>
-      <button>SignUp</button>
+      <Link to='/signup'> <button>SignUp</button></Link>
     </div>
   );
 }
 
-export default SignIn;
+export default LogIn;

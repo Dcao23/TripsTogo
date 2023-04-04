@@ -1,70 +1,39 @@
 import { gql } from '@apollo/client';
 
 export const LOGIN_USER = gql`
-  mutation login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      token
-      user {
-        _id
-        username
-      }
+mutation Login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    token
+    user {
+      _id
+      username
+      email
     }
   }
+}
 `;
 
 export const CREATE_USER = gql`
-  mutation createUser($username: String!, $email: String!, $password: String!, bio: String, profilePic: String) {
-    createUser(username: $username, email: $email, password: $password, bio: $bio, profilePic: $profilePic) {
-      token
-      user {
-        _id
-        username
-      }
+mutation AddUser($username: String!, $password: String!, $email: String!) {
+  addUser(username: $username, password: $password, email: $email) {
+    token
+    user {
+      _id
+      username
+      email
     }
   }
+}
 `;
 
 export const CREATE_TRIP = gql`
-  mutation createTrip($tripCreator: String!,$tripName: String!, $tripDescription: String!, $location: String!, image: String) {
-    createtrip(tripName: $tripName, tripDescription: $tripDescription: location: $location, image: $image) {
-      _id
-      tripName
-      tripCreator
-      tripDescription
-      location
-      image
-      createdAt
-      comments {
-        _id
-        commentText
-      }
-    }
+mutation CreateTrip($input: UserTrip!) {
+  createTrip(input: $input) {
+    name
+    description
+    location
+    image
   }
-`;
-
-export const CREATE_COMMENT = gql`
-  mutation createComment(
-    $tripId: ID!
-    $commentText: String!
-    $commentCreator: String!
-  ) {
-    createComment(
-      tripId: $tripId
-      commentText: $commentText
-      commentCreator: $commentCreator
-    ) {
-      _id
-      tripName
-      tripCreator
-      tripDescription
-      location
-      image
-      comments {
-        _id
-        commentText
-        createdAt
-      }
-    }
-  }
+}
 `;
 

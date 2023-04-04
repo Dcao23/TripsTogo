@@ -44,7 +44,6 @@ const tripSchema = new mongoose.Schema({
         createdAt: {
           type: Date,
           default: Date.now,
-          get: (timestamp) => dateFormat(timestamp),
         },
       },
     ],

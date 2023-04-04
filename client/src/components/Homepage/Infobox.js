@@ -4,7 +4,7 @@ export const InfoBox = ({ title, img, description }) => {
   const [active, setActive] = useState(false);
   return (
     <div className="InfoBox">
-      <img src={img} alt="" />
+      <img src={img || "./assets/placeholder.jpeg"} alt="" width={300} height="auto" />
       <div className="presentation">
         <h1>{title}</h1>
         <p>{description}</p>

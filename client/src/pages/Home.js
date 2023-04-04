@@ -1,13 +1,28 @@
 import React from "react";
+import { useQuery } from '@apollo/client'
 import { Header } from "../components/header";
 import "../assets/css/home.css";
 import { InfoBox } from "../components/Homepage/Infobox";
+import { QUERY_TRIPS } from '../utils/queries'
 
 const Home = () => {
+  const { loading, data } = useQuery(QUERY_TRIPS)
+  const trips = data?.trips || [];
+
   return (
     <div className="Home">
-      <Header />
       <div className="boxes-wrapper common_width">
+        {loading ? <h1>Loading...</h1> :
+          trips.map(trip => (
+            <InfoBox
+              title={`${trip.name} - ${trip.location} by ${trip.creator}`}
+              img={trip.image}
+              description={trip.description || "Fun trip!"}
+            />
+          ))
+        }
+        {/* <Header />
+   
         <InfoBox
           title="Cappadocia, Turkey"
           img="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Cappadocia_balloon_trip%2C_Ortahisar_Castle_%2811893715185%29.jpg/516px-Cappadocia_balloon_trip%2C_Ortahisar_Castle_%2811893715185%29.jpg"
@@ -37,7 +52,7 @@ const Home = () => {
           title="Serengeti Plains, Tanzania"
           img="https://cdn-bmalj.nitrocdn.com/uirOOtSrYrqqUksKHkiSCjZGZlPeXsmk/assets/static/optimized/rev-939cb5a/images/photography-tours-2018-tanzania-25.jpg"
           description={`The Serengeti ecosystem is a geographical region in Africa, spanning the Mara and Arusha Regions of Tanzania.[1] The protected area within the region includes approximately 30,000 km2 (12,000 sq mi) of land, including the Serengeti National Park.`}
-        />
+        /> */}
       </div>
     </div>
   );
