@@ -1,14 +1,23 @@
+import { gql } from "@apollo/client";
 
-export function validateEmail(email) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-  }
-  
-  export function checkPassword(input) {
-    const passw = /^[A-Za-z]\w{7,14}$/;
-    if (input.match(passw)) {
-      return true;
+export const CREATE_MATCHUP = gql`
+  mutation createMatchup($tech1: String!, $tech2: String!) {
+    createMatchup(tech1: $tech1, tech2: $tech2) {
+      _id
+      tech1
+      tech2
     }
-    return false;
   }
-  
+`;
+
+export const CREATE_VOTE = gql`
+  mutation createVote($_id: String!, $techNum: Int!) {
+    createVote(_id: $_id, techNum: $techNum) {
+      _id
+      tech1
+      tech2
+      tech1_votes
+      tech2_votes
+    }
+  }
+`;

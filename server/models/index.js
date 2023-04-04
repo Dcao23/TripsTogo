@@ -1,4 +1,13 @@
-const User = require('./user');
-const Trip = require('./trip');
+const mongoose = require('mongoose');
+const User = require('./User');
+const Trip = require('./Trips');
+const Comment = require('./comment');
+const Post = require('./post');
 
-module.exports = { User, Trip }
+mongoose.connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+});
+
+module.exports = { User, Trip, Comment, Post }
