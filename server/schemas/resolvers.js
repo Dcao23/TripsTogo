@@ -43,15 +43,16 @@ const resolvers = {
 
       return { token, user };
     },
-    createTrip: async (parent, { tripName, tripDescription, location, img, tripCreator }) => {
-      const newTrip = await Trip.create({ tripName, tripDescription, location, img });
+    addTrip: async (parent, { newTrip }) => {
+      const updatedTrip = await Trip.create({ newTrip });
 
       await User.findOneAndUpdate(
         { username: tripCreator },
-        { $addToSet: { userTrips: newTrip._id } }
+        { $addToSet: { userTrips: updatedTrip._id } },
+        {new: true}
       );
 
-      return newTrip;
+      return updatedTrip;
     },
     addComment: async (parent, { tripId, commentText, commentCreator }) => {
       return Trip.findOneAndUpdate(

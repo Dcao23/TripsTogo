@@ -33,7 +33,6 @@ const typeDefs = gql`
     tripDescription: String!
     location: String!
     img: String
-    comments: [String]
   }
   
   type Query {
@@ -44,12 +43,12 @@ const typeDefs = gql`
   }
   
   type Mutation {
-    addUser(username: String!, email: String!, password: String!, bio: String!, profilePic: String!): User
+    addUser(username: String!, email: String!, password: String!): User
     login(email: String!, password: String!): Auth
-    createTrip(input: UserTrip!): Trip
+    addTrip(newTrip: UserTrip): Trip
     addComment(tripId: ID!, commentText: String!, commentCreator: String!): Comment
-    deleteTrip(tripId: ID!): Boolean
-    deleteComment(tripId: ID!, commentId: ID!): Boolean 
+    deleteTrip(tripId: ID!): Trip
+    deleteComment(tripId: ID!, commentId: ID!): Trip
   }
   
   type Auth {
