@@ -1,26 +1,14 @@
 [
     {
-        "name": "",
-        "trips": ["Cancun, Vietnam, Tahiti, Barcelona, Dubai, Victoria Falls"]
+        "username": "Gavin",
+        "email": "gpomphrey25@gmail.com",
+        "password": "password",
+        "bio": "I'm one cool dude"
     },
     {
-        "name": "",
-        "trips": ["Bahamas, Turkey, London, Grand Canyon, St. Lucia"]
-    },
-    {
-        "name": "",
-        "trips": ["France, Hawaii, New Zealand, Rome, Costa Rica, Santorini"]
-    },
-    {
-        "name": "",
-        "trips": ["Japan, Alaska, Paris, Turks & Caicos, Bali, Yosemite National Park"]
-    },
-    {
-        "name": "",
-        "trips": ["Brazil, Canada, Maui, Maldives, NYC, Rio de Janeiro"]
-    },
-    {
-        "name": "",
-        "trips": ["Indonesia, Austrailia, Bora Bora, Phuket, Syndney, Amalfi Coast"]
+        "username": "Andrew",
+        "email": "andrew@gmail.com",
+        "password": "password",
+        "bio": "I'm okay"
     }
 ]

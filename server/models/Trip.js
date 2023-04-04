@@ -1,20 +1,18 @@
 const mongoose = require('mongoose');
 
 const tripSchema = new mongoose.Schema({
-    tripName: {
+    name: {
         type: String,
         required: true,
         trim: true,
         maxLength: 100,
     },
-    tripCreator: {
+    creator: {
       type: String,
-      required: true,
-      trim: true,
+      required: true
     },
-    tripDescription: {
+    description: {
         type: String,
-        required: true,
         trim: true,
         maxLength: 1000,
     },
@@ -33,13 +31,13 @@ const tripSchema = new mongoose.Schema({
     },
     comments: [
       {
-        commentText: {
+        text: {
           type: String,
           required: true,
           minlength: 1,
           maxlength: 280,
         },
-        commentAuthor: {
+        author: {
           type: String,
           required: true,
         },

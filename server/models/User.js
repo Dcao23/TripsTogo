@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const { Schema, model } = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
@@ -27,12 +27,11 @@ const userSchema = new Schema({
     },
     profilePic: {
         type: String,
-        required: false,
     },
-    userTrips: [
+    trips: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Trips',
+        ref: 'Trip',
       },
     ],
 

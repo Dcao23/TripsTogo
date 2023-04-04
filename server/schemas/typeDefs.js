@@ -6,16 +6,16 @@ const typeDefs = gql`
     username: String
     email: String
     password: String
-    userTrips: [Trip]!
+    trips: [Trip]!
   }
   
   type Trip {
     _id: ID
-    tripCreator: String
-    tripName: String
-    tripDescription: String
+    creator: String
+    name: String
+    description: String
     location: String
-    img: String
+    image: String
     createdAt: String
     comments: [Comment]!
   }
@@ -28,23 +28,24 @@ const typeDefs = gql`
   }
   
   input UserTrip {
-    tripCreator: String!
-    tripName: String!
-    tripDescription: String!
+    creator: String!
+    name: String!
+    description: String!
     location: String!
-    img: String
+    image: String
     comments: [String]
   }
   
   type Query {
     users: [User]
-    user(username: String!): User
+    user(userId: ID!): User
+    trips: [Trip]
     userTrips(username: String!): [Trip]
     trip(tripId: ID!): Trip
   }
   
   type Mutation {
-    addUser(username: String!, email: String!, password: String!, bio: String!, profilePic: String!): User
+    addUser(username: String!, email: String!, password: String!): User
     login(email: String!, password: String!): Auth
     createTrip(input: UserTrip!): Trip
     addComment(tripId: ID!, commentText: String!, commentCreator: String!): Comment
@@ -60,4 +61,3 @@ const typeDefs = gql`
 
 module.exports = typeDefs;
 
-  
