@@ -7,6 +7,11 @@ const tripSchema = new mongoose.Schema({
         trim: true,
         maxLength: 100,
     },
+    tripCreator: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     tripDescription: {
         type: String,
         required: true,
@@ -18,6 +23,9 @@ const tripSchema = new mongoose.Schema({
         required: true,
         trim: true,
         maxLength: 100,
+    },
+    image: {
+        type: String,
     },
     createdAt: {
         type: Date,

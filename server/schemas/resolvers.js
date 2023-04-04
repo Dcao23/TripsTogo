@@ -4,136 +4,143 @@ const resolvers = {
     Query: {
     //fetch all users
     users: async () => {
-        return await User.find().populate('myTrips');
+        return User.find().populate('userTrips');
     },
     //fetch a user by id
     user: async (_, { username }) => {
-        return await User.findOne(username).populate('myTrips');
+        return User.findOne(username).populate('userTrips');
     },
     //fetch all trips
-    trips: async () => {
-        return await Trip.find();
+    userTrips: async (_, {username}) => {
+        const params = username ? { username } : {};
+        return Trip.find(params),sort({ createdAt: -1 });
     },
     //fetch a trip by id
-    trip: async (_, { id }) => {
-        return await Trip.findById(id);
+    trip: async (_, { tripId }) => {
+        return Trip.findOne({ _id: tripId });
     },
 },
 
 Mutation: {
-    createUser: async (_, { userInput }) => {
-        try {
-            const user = new User({
-                username: userInput.username,
-                email: userInput.email,
-                password: userInput.password,
-                bio: userInput.bio,
-                profilePic: userInput.profilePic,
-            });
-            const result = await user.save();
-
-            return { ...result._doc, password: null };
-        } catch (err) {
-            throw err;
-        }
+    addUser: async (parent, { username, email, password }) => {
+        const user = await User.create({ username, email, password });
+        const token = signToken(user);
+        return { token, user };
     },
-    createPost: async (_, { postInput }, { req }) => {
-        if (!req.isAuth) {
-            throw new Error('Unauthenticated!');
-        }
-        try {
-            const post = new Post({
-                title: postInput.title,
-                content: postInput.content,
-                imageUrl: postInput.imageUrl,
-                creator: req.userId,
-            });
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
 
-            const result = await post.save();
-            const user = await User.findById(req.userId);
+      if (!user) {
+        throw new AuthenticationError('No user found with this email address');
+      }
 
-            if (!user) {
-                throw new Error('User not found.');
-            }
+      const correctPw = await user.isCorrectPassword(password);
 
-            user.posts.push(post);
-            await user.save();
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
 
-            return {
-                ...result._doc,
-                _id: result.id,
-                createdAt: result.createdAt.toISOString(),
-                updatedAt: result.updatedAt.toISOString(),
-            };
-            } catch (err) {
-                throw err;
-            }
-        },
-        createComment: async (_, { commentInput }, { req }) => {
-            if (!req.isAuth) {
-                throw new Error('Unauthenticated!');
-            }
-            try {
-                const comment = new Comment({
-                    content: commentInput.content,
-                    post: commentInput.postId,
-                    creator: req.userId,
-                });
+      const token = signToken(user);
 
-                const result = await comment.save();
-                const post = await Post.findById(commentInput.postId);
+      return { token, user };
+    },
+    createTrip: async (parent, { tripName, tripDescription, location, img}) => {
+      const newTrip = await Trip.create({ tripName, tripDescription, location, img });
+  
+      await User.findOneAndUpdate(
+        { username: tripCreator },
+        { $addToSet: { userTrips: newTrip._id } }
+      );
+  
+      return newTrip;
+    },
+    // createComment: async (_, { commentInput }, { req }) => {
+        //     if (!req.isAuth) {
+        //         throw new Error('Unauthenticated!');
+        //     }
+        //     try {
+        //         const comment = new Comment({
+        //             content: commentInput.content,
+        //             post: commentInput.postId,
+        //             creator: req.userId,
+        //         });
 
-                if (!post) {
-                    throw new Error('Post not found.');
-                }
+        //         const result = await comment.save();
+        //         const post = await Post.findById(commentInput.postId);
 
-                post.comments.push(comment);
-                await post.save();
+        //         if (!post) {
+        //             throw new Error('Post not found.');
+        //         }
 
-                return {
-                    ...result._doc,
-                    _id: result.id,
-                    createdAt: result.createdAt.toISOString(),
-                    updatedAt: result.updatedAt.toISOString(),
-                };
-            } catch (err) {
-                throw err;
-            }
-        },
-        createTrip: async (_, { tripInput }, { req }) => {
-            if (!req.isAuth) {
-                throw new Error('Unauthenticated!');
-            }
-            try {
-                const trip = new Trip({
-                    title: tripInput.title,
-                    startDate: tripInput.startDate,
-                    endDate: tripInput.endDate,
-                    description: tripInput.description,
-                    creator: req.userId,
-                });
-                const result = await trip.save();
-                const user = await User.findById(req.userId);
+        //         post.comments.push(comment);
+        //         await post.save();
 
-                if (!user) {
-                    throw new Error('User not found.');
-                }
+        //         return {
+        //             ...result._doc,
+        //             _id: result.id,
+        //             createdAt: result.createdAt.toISOString(),
+        //             updatedAt: result.updatedAt.toISOString(),
+        //         };
+        //     } catch (err) {
+        //         throw err;
+        //     }
+        // },
+        // createTrip: async (_, { tripInput }, { req }) => {
+        //     if (!req.isAuth) {
+        //         throw new Error('Unauthenticated!');
+        //     }
+        //     try {
+        //         const trip = new Trip({
+        //             title: tripInput.title,
+        //             startDate: tripInput.startDate,
+        //             endDate: tripInput.endDate,
+        //             description: tripInput.description,
+        //             creator: req.userId,
+        //         });
+        //         const result = await trip.save();
+        //         const user = await User.findById(req.userId);
 
-                user.trips.push(trip);
-                await user.save();
+        //         if (!user) {
+        //             throw new Error('User not found.');
+        //         }
 
-                return {
-                    ...result._doc,
-                    _id: result.id,
-                    startDate: result.startDate.toISOString(),
-                    endDate: result.endDate.toISOString(),
-                    createdAt: result.createdAt.toISOString(),
-                    updatedAt: result.updatedAt.toISOString(),
-                };
-            } catch (err) {
-                throw err;
-            }
-        },
+        //         user.trips.push(trip);
+        //         await user.save();
+
+        //         return {
+        //             ...result._doc,
+        //             _id: result.id,
+        //             startDate: result.startDate.toISOString(),
+        //             endDate: result.endDate.toISOString(),
+        //             createdAt: result.createdAt.toISOString(),
+        //             updatedAt: result.updatedAt.toISOString(),
+        //         };
+        //     } catch (err) {
+        //         throw err;
+        //     }
+        // },
+        addComment: async (parent, { tripId, commentText, commentCreator }) => {
+            return Thought.findOneAndUpdate(
+              { _id: tripId },
+              {
+                $addToSet: { comments: { commentText, commentCreator } },
+              },
+              {
+                new: true,
+                runValidators: true,
+              }
+            );
+          },
+          deleteThought: async (parent, { tripId }) => {
+            return Thought.findOneAndDelete({ _id: tripId });
+          },
+          deleteComment: async (parent, { tripId, commentId }) => {
+            return Thought.findOneAndUpdate(
+              { _id: tripId },
+              { $pull: { comments: { _id: commentId } } },
+              { new: true }
+            );
+          },
     },
 };
 
