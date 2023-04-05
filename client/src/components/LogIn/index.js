@@ -54,10 +54,10 @@ function LogIn() {
           <label>
             <p>password</p>
             <input
+              type='password'
               value={password}
               name="password"
               onChange={handleInputChange}
-              type="text"
               placeholder="Password"
             />
           </label>
