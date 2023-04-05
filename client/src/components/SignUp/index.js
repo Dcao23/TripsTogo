@@ -53,7 +53,7 @@ function SignUp() {
         }
       })
 
-      AuthService.login(data.login.token)
+      AuthService.login(data.addUser.token)
     } catch (e) {
       console.error(e)
     }
